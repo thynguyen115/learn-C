@@ -1,0 +1,13 @@
+typedef struct student {
+  int id;
+  char name[10];
+  float score;
+} student; // alias
+
+instead of 
+struct student {
+  int id;
+  char name[10];
+  float score;
+};
+struct student var1;
