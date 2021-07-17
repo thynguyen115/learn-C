@@ -23,15 +23,12 @@
 - #define CONST_NAME [value]
     - #define PI 3.14
 - header guards in .h files
-    ` #ifndef PA1_H       /* Macro Guard */
-    
-      #define PA1_H `
-      
-    `#ifndef DEFAULT_SIZE
-    
-     #define DEFAULT_SIZE 2021
-     
-     #endif`
+    ` #ifndef PA1_H       /* Macro Guard */`
+    `#define PA1_H `
+  
+    `#ifndef DEFAULT_SIZE`
+    `#define DEFAULT_SIZE 2021`
+     `#endif`
 - note: extern.h contains 
 
 ## Data types:
@@ -40,7 +37,24 @@
     - Ex: extern int func_name(void);
     - Import list (from outside file to this file): those with "extern" keyword 
     - Export list (from this file to another file): those global vars/funcs
- 
+- Edianness
+    - Little endian
+    - Big endian
+- Array
+    - 1D
+    - 2D
+- C String
+    - Funcs on Cstring
+        - strlen
+        - strcpy
+        -     
+- Pointers
+    - Pointer arithmetic
+- Struct
+- Dynamic mem allocation
+    - Similarities
+    - Differences
+    
 ## Basic syntax
 - if/else
     -  
@@ -51,4 +65,12 @@
 - printf
 - putchar
 
-
+## Numbers in computer system:
+- Dec, Bin, Hexa, Oct
+- 2's complement format
+    - Decimal to 2's complement format
+    - 2's complement format to dec
+    - Addition / Subtraction
+- IEEE 754 format:
+    - Dec to IEEE 754
+    - IEEE 754 to Dec 
