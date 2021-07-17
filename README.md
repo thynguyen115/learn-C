@@ -36,6 +36,7 @@
 - note: extern.h contains all extern vars
 
 ## Data types:
+
 - __extern__ (outside func, might come from another file), __global__ (outside func, inside current file, also static var, avalable to other files), __static__ (could be inside/outside func, but only available to __this__ file) - see slide 1 pg. 45), __local__ (inside func)
     - Ex:  `extern int x;     int x_global;   static int x_static;    int local_var;`
     - Ex: `extern int func_name(void);`
@@ -44,7 +45,8 @@
 - Size [32-bit ARM (PI)] (slide 1, pg. 51): char (1), short (2), int = long = float = pointer * (4), double = long long = long double = 8
     - `sizeof()` // returns number of bytes to store a var / var type
     - Ex: `size_t shrt_byte = sizeof(shrt_byte);` // size_t = (often) unsigned long
-    - Ex:  `printf("size=%zu", sizeof(x_ptr));` 
+    - Ex:  `printf("size=%zu", sizeof(x_ptr));`
+     
 - __Endianness__ (slide 2 - pg.5, 11)
     - Little endian (X86-64, 32-bit Raspberry Pi): MSB at high address, LSB starts at lowest address
     - Big endian: MSB starts at lowest address
@@ -54,7 +56,9 @@
     - `#define CONST_COUNT 5` then `type arr[CONST_COUNT];` (slide 2, p.29)
         - Allocates CONST_COUNT * sizeof(type) bytes of contiguous memory
         - arr[0] at low memory, a[CONST_COUNT - 1] at higher memory
-        - arr is const type*; ex: when passing arr name into a function, func param can be `int *arr` (slide 2, pg.50)
+        - arr is const type*; 
+        	- ex: when passing arr name into a function, func param can be `int *arr` (slide 2, pg.50)
+        	- cannot change the array name ==> cannot do arr = arr + 1;
         - arr <=> &arr[0], (arr+1) <=> &arr[1]
         - *(arr+i) <=> arr[i]
         - Should define a compile-time const for #of elems in arr     
@@ -101,17 +105,27 @@
     		- ExL `char mess[3] = 'dog'`; // is not a string (not have '\0' at the end)
     - `char *messg = "Hello World";` // LHS read only
     	- "Hello World" is string literal/const ==> cannot be changed ==> cannot do *messg = 'h';
-    	-   
     - Funcs on Cstring
         - `strlen(myStr)`: O(N) - scan entire string ==> should save its value somewhere
         	- Decoration: `size_t strlen(const char *s);`
         	- Ex: strlen(arr); // 5 (not count '\0') (char arr[] = "hello";)
+        	- Similar to (endPtr_to_null - startPtr - 1) // (slide 2, pg. 64)
         - `strcpy(charPtr1, charPtr2)`
         	-  Decoration: `char *strcpy(char *s0, const char *s1);`
         	-  Ex: `strcpy(str, "abc");` // now str = abc, but len(str) >= 3 to copy abc
-	-  
-        - 
-
+        	-  If not enough space ==> overwrites other memory (next to it) ==> other memory is affected (i.e. changes its value) ==> __buffer overflow__ (slide 2, pg.68)
+	-  `char *strncpy(char *dest, const char *src, size_t n);`
+        	- Copy n chars from source.
+        	- Ex: `strncpy(dest, src, 10);` // copy 10 chars
+        	- If copy is terminated by length (n) being reach (but there is still other characters behind these) ==> no null char '\0' added to the end ==> can't tell where the end of string is (slide 2, pg. 69)
+        -   `char *strcat(char *dest, const char *src);`
+        	- Concatenate string pointed by src to the end of string pointed by dest
+        	- Ex: `strcpy(dest, src);` // with char dest[10] = "world; char src[10] = "hello";
+        		- gives: worldhello
+	-    `char *strncat(char *dest, const char *src, size_t n);`
+	-    `int strcmp(const char *s0, const char *s1);` // slide 2, pg. 70
+		-  Compare 2 strings (by their ASCII values)
+		-  Returns 0 (s0 == s1); >0 (s0 > s1); <0 (s0 < s1)
   
 - __Pointers__
     - (Has their own address)
@@ -134,6 +148,9 @@
     - Differences
     
 ## Basic syntax
+- `int main(int argc, char * argv[]);` // slide 3, pg. 4
+	- argc = number of command line arguments
+	- argv = an array of (pointers to char) 
 - if/else
     -  
 - loop
@@ -146,7 +163,15 @@
     - should not return &address_of_something if that thing will disappear after func call (ex: local vars, passed params) ==> can use "static" to make things not disappear (see slide 2, pg.27)
 
 ## Numbers in computer system:
-- Dec, Bin, Hexa, Oct
+- __Decimal: base 10__
+	- 10 symbols [0,] 
+	-  Ex: 71 (base 10) = (7 * 10^1) + (1 * 10^0)
+- __Binary: base 2__
+	-  
+- __Hexadecimal: base 16__
+	- Ex:  
+- Oct
+	-  
 - 2's complement format
     - Decimal to 2's complement format
     - 2's complement format to dec
