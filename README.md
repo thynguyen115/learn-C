@@ -10,7 +10,7 @@
 
 ==> Hardware [machine code, .o file]
 - See slide 1 (pg. 25, 26/69)
-- gcc -Wall -o executable_file file_name.c file_name_2.c
+- `gcc -Wall -o executable_file file_name.c file_name_2.c`
 
 ## Pre-processor and directives
 - #include <system_header files> (txtbook, pg. 684)
@@ -24,9 +24,13 @@
     - #define PI 3.14
 - header guards in .h files
     ` #ifndef PA1_H       /* Macro Guard */
+    
       #define PA1_H `
+      
     `#ifndef DEFAULT_SIZE
+    
      #define DEFAULT_SIZE 2021
+     
      #endif`
 - note: extern.h contains 
 
