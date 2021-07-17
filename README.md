@@ -77,14 +77,40 @@
             - contiguous block of memory (slide 2, pg.46) 
         - `int *pgrid[2] = { (int[]){1, 2, 3, 4, 5}, (int[]){2, 3, 4, 5, 6}};`
             - sizeof(pgrid) = 2 * 4 = 8
-            - memory do not need to be contiguous (slide 2, pg.47)
+            - memory does not need to be contiguous (slide 2, pg.47)
     - Array DN know their own size; No bounds checking, outbound ==> maybe runtime error
     - When being returned from a function, (returned type = int*) ==> an array should be *static* (slide 2, pg.51)
-- __C String__
-    -  
+    - `void passElem(int a[])` then `sizeof(a)` is 4 bytes (size of a pointer; not like ex. abt array above).
+    - To copy array elements, use loop (b/c name_arr_1 = name_arr_2; // only copy the pointer
+
+- __Characters__:
+	- 1 byte each
+	- `'0'` (ASCII encoding for 0); `'\0'` (null), `'\''` (single quote), `'\\'` (backflash) 
+	- Ex: print from a to z (lowercase)
+	`char ch;
+	
+	for (ch = 'a'; ch <= 'z'; ch++)
+	
+	printf("%c", ch);`
+	- C represents each char as an int (ASCII value)
+		- 'A' is 65; 'a' = 97 = 65 + 32;  
+- __C String__ (slide 2, pg.50)
+    - `char arr[] = "Hello World";` // each char is 1 byte; 'H' is at lower address than 'd'
+    	- Should have enough space to hold '\0'
+    		- if not ==> invalid string ==> cannot use functions from string library
+    		- ExL `char mess[3] = 'dog'`; // is not a string (not have '\0' at the end)
+    - `char *messg = "Hello World";` // LHS read only
+    	- "Hello World" is string literal/const ==> cannot be changed ==> cannot do *messg = 'h';
+    	-   
     - Funcs on Cstring
-        - strlen: O(N) - scan entire string ==> should save its value somewhere
-        - strcpy
+        - `strlen(myStr)`: O(N) - scan entire string ==> should save its value somewhere
+        	- Decoration: `size_t strlen(const char *s);`
+        	- Ex: strlen(arr); // 5 (not count '\0') (char arr[] = "hello";)
+        - `strcpy(charPtr1, charPtr2)`
+        	-  Decoration: `char *strcpy(char *s0, const char *s1);`
+        	-  Ex: `strcpy(str, "abc");` // now str = abc, but len(str) >= 3 to copy abc
+	-  
+        - 
 
   
 - __Pointers__
@@ -97,7 +123,7 @@
         - Dereferencing a NULL(0) pointer / non-addresss ==> segmentation fault (runtime)
     - __Aliasing__: >1 var can access the same memory address
     - __NULL__ = pointer to nothing
-        - Ex:`int* ptr = NULL;`   `int* ptr = (int *)0;` // cast 0 to a pointer type `int *ptr = (void *)9; // auto to correct type
+        - Ex:`int* ptr = NULL;`   `int* ptr = (int *)0;` // cast 0 to a pointer type `int *ptr = (void *)0`; // auto to correct type
         - Ex: `if(ptr != NULL)` // NULL is like false (Boolean)    
     - __Pointer arithmetic__: see Array part above
         - `const int *a` // cannot change to a++
