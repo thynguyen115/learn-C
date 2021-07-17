@@ -50,12 +50,14 @@
 - Array
     - 1D
     - 2D
+    - 
 - __C String__
     -  
     - Funcs on Cstring
         - strlen: O(N) - scan entire string ==> should save its value somewhere
         - strcpy
-        -     
+
+  
 - __Pointers__
     - (Has their own address)
     - Hold others' address 
