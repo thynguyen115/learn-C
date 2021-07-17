@@ -18,6 +18,7 @@
     - `#include <stdlib.h>` // Standard library; used for (rand and srand), (malloc and free), (exit), (atoi, atol, and atof).
     - `#include <math.h>` // Math library; for (sin, cos, asin, acos, sqrt, log, log10, exp, floor, and ceil).
     - `#include <string.h>` // String library
+    - `#include <ctype.h>` // isalpha(ch); islower(ch); isupper(ch); isspace(ch); isdigit(ch); toupper(ch); tolower(ch); // slide 2 - pg.58
 - __#include "local_header files"__ 
     - `#include "PA1.h"` // user created
 - __#define CONST_NAME [value]__
@@ -41,18 +42,21 @@
     - `sizeof()` // returns number of bytes to store a var / var type
     - Ex: `size_t shrt_byte = sizeof(shrt_byte);` // size_t = (often) unsigned long
     - Ex:  `printf("size=%zu", sizeof(x_ptr));` 
-- Edianness
-    - Little endian
-    - Big endian
+- Edianness (slide 2 - pg.5)
+    - Little endian (X86-64, 32-bit Raspberry Pi): MSB at high address, LSB starts at lowest address
+    - Big endian: MSB starts at lowest address
+    - Ex: 4-byte data *d4c3b2a1* (MSB = d4 - starts for big-endian, LSB = a1 - start for little endian)
+     
 - Array
     - 1D
     - 2D
-- C String
+- __C String__
+    -  
     - Funcs on Cstring
-        - strlen
+        - strlen: O(N) - scan entire string ==> should save its value somewhere
         - strcpy
         -     
-- Pointers
+- __Pointers__
     - (Has their own address)
     - Hold others' address 
     - Are allocated the same amount of memory regardless of where they point at
@@ -60,7 +64,10 @@
         - Note: `int *ptr1, ptr2;` // means int *ptr1; int ptr2;
     - Dereference: int y = *x; // for x = pointer to an int
         - Dereferencing a NULL(0) pointer / non-addresss ==> segmentation fault (runtime)
-    - Aliasing: > 1 var can access the same memory address
+    - __Aliasing__: >1 var can access the same memory address
+    - __NULL__ = pointer to nothing
+        - Ex:`int* ptr = NULL;`   `int* ptr = (int *)0;` // cast 0 to a pointer type `int *ptr = (void *)9; // auto to correct type
+        - Ex: `if(ptr != NULL)` // NULL is like false (Boolean)    
     - Pointer arithmetic
 - Struct
 - Dynamic mem allocation
