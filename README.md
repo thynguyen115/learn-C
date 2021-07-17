@@ -23,14 +23,17 @@
     - `#include "PA1.h"` // user created
 - __#define CONST_NAME [value]__
     - `#define PI 3.14`
-- header guards in .h files
+- __header guards__ in .h files
     ` #ifndef PA1_H       /* Macro Guard */`
-    `#define PA1_H `
+   
+   `#define PA1_H `
   
     `#ifndef DEFAULT_SIZE`
+    
     `#define DEFAULT_SIZE 2021`
+    
      `#endif`
-- note: extern.h contains 
+- note: extern.h contains all extern vars
 
 ## Data types:
 - __extern__ (outside func, might come from another file), __global__ (outside func, inside current file, also static var, avalable to other files), __static__ (could be inside/outside func, but only available to __this__ file) - see slide 1 pg. 45), __local__ (inside func)
@@ -42,15 +45,41 @@
     - `sizeof()` // returns number of bytes to store a var / var type
     - Ex: `size_t shrt_byte = sizeof(shrt_byte);` // size_t = (often) unsigned long
     - Ex:  `printf("size=%zu", sizeof(x_ptr));` 
-- Edianness (slide 2 - pg.5)
+- __Endianness__ (slide 2 - pg.5, 11)
     - Little endian (X86-64, 32-bit Raspberry Pi): MSB at high address, LSB starts at lowest address
     - Big endian: MSB starts at lowest address
     - Ex: 4-byte data *d4c3b2a1* (MSB = d4 - starts for big-endian, LSB = a1 - start for little endian)
      
-- Array
-    - 1D
-    - 2D
-    - 
+- __Array__
+    - `#define CONST_COUNT 5` then `type arr[CONST_COUNT];` (slide 2, p.29)
+        - Allocates CONST_COUNT * sizeof(type) bytes of contiguous memory
+        - arr[0] at low memory, a[CONST_COUNT - 1] at higher memory
+        - arr is const type*; ex: when passing arr name into a function, func param can be `int *arr` (slide 2, pg.50)
+        - arr <=> &arr[0], (arr+1) <=> &arr[1]
+        - *(arr+i) <=> arr[i]
+        - Should define a compile-time const for #of elems in arr     
+    - Initialization: `type arr[CONST_COUNT] = {val_1, val_2,...,val_CONST_COUNT};` or `int arr[5] = {};` // works with const size arrays, an arr of 5 ints; or `int vals[] = {1,2,3};` // no need to specify size
+        - Only be used at definition time
+    - `printf("%d", sizeof(arr));` // size of arr = (num elems) * (4bytes each)
+    - `size_t count;` // __size_t__ is [typedef unsigned int]
+	   `count = sizeof(arr) / sizeof(arr[0]);` // counts number of elems
+    - Array name (like const, cannot be changed) = addreess of the start of array
+    - Each sizeof(pointer of an int) takes 4 bytes ==> `int *xptr = ptr + 2;` gives xptr an address of ptr pointing to + (2 * 4) = 8 bytes (see slide 2, p.33)
+    - Note `*xptr == *(ptr+2) == arr[2]`
+    - Note: if ptr is int*, then dereferenced ptr can take in the values of a char (1 byte)
+        - `char y = 'a';`   `*ptr = y;`
+    - Can also do (ptr - some_num)  
+    - __Warning__: cannot add 2 pointers, but can subtract 2 pointers of same type
+        - `(ptr-xptr)` gives the number of elems between them 
+        - In C, (ptr-xptr) acts like `(ptr-xptr) / sizeof(*ptr)` gives the number of elems bw them
+    - 2D arrays: 
+        - `type arr[rows][cols] = {{val_00, val_01, val_02,...},...,{val_n0, val_n1,...}}`
+            - contiguous block of memory (slide 2, pg.46) 
+        - `int *pgrid[2] = { (int[]){1, 2, 3, 4, 5}, (int[]){2, 3, 4, 5, 6}};`
+            - sizeof(pgrid) = 2 * 4 = 8
+            - memory do not need to be contiguous (slide 2, pg.47)
+    - Array DN know their own size; No bounds checking, outbound ==> maybe runtime error
+    - When being returned from a function, (returned type = int*) ==> an array should be *static* (slide 2, pg.51)
 - __C String__
     -  
     - Funcs on Cstring
@@ -70,7 +99,9 @@
     - __NULL__ = pointer to nothing
         - Ex:`int* ptr = NULL;`   `int* ptr = (int *)0;` // cast 0 to a pointer type `int *ptr = (void *)9; // auto to correct type
         - Ex: `if(ptr != NULL)` // NULL is like false (Boolean)    
-    - Pointer arithmetic
+    - __Pointer arithmetic__: see Array part above
+        - `const int *a` // cannot change to a++
+    - __Precedence__: `*ptr++ = 0;` since post-incr has higher precedence than dereference ==> acts from left to right ==> `*ptr = 0;` then `ptr = ptr + 1;`
 - Struct
 - Dynamic mem allocation
     - Similarities
@@ -85,6 +116,8 @@
 ## Fundamental functions
 - printf
 - putchar
+- __self-define funcs__:
+    - should not return &address_of_something if that thing will disappear after func call (ex: local vars, passed params) ==> can use "static" to make things not disappear (see slide 2, pg.27)
 
 ## Numbers in computer system:
 - Dec, Bin, Hexa, Oct
