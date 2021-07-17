@@ -1,4 +1,4 @@
-# learn-C (Summer 1 — 2021)
+# Learn-C
 
 ## Basic C compilation sequence
 
@@ -22,13 +22,29 @@
     - #include "PA1.h" // user created
 - #define CONST_NAME [value]
     - #define PI 3.14
-- header guards in .h file
-    - #ifndef foo.h
-      #define "foo.h"
-      #endif
+- header guards in .h files
+    ` #ifndef PA1_H       /* Macro Guard */
+      #define PA1_H `
+    `#ifndef DEFAULT_SIZE
+     #define DEFAULT_SIZE 2021
+     #endif`
+- note: extern.h contains 
+
+## Data types:
+- extern (outside func, might come from another file), global (outside func, inside current file, also static var, avalable to other files), static (could be inside/outside func, but only available to __this__ file) - see slide 1 pg. 45), local (inside func)
+    - Ex: extern int x;     int x_global;   static int x_static;    int local_var;
+    - Ex: extern int func_name(void);
+    - Import list (from outside file to this file): those with "extern" keyword 
+    - Export list (from this file to another file): those global vars/funcs
+ 
 ## Basic syntax
 - if/else
     -  
 - loop
 - func
+
+## Fundamental functions
+- printf
+- putchar
+
 
