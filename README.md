@@ -164,18 +164,49 @@
 
 ## Numbers in computer system:
 - __Decimal: base 10__
-	- 10 symbols [0,] 
+	- 10 symbols [0,9] 
 	-  Ex: 71 (base 10) = (7 * 10^1) + (1 * 10^0)
+	-  From decimal to binary: takes the decimal number, / 2 until the result = 0, then read the remainders starting from the most recent remainder up to the first one.
+		- Unsigned int ==> Unside Bin  
+		- Ex: 71/2 = 35 (r = 1); 35/2=17 (r=1); 17/2=8 (r=1); 8/2=4 (r=0); 4/2=2 (r=0); 2/2=1 (r=0); 1/2=0 (r=1) ==> 71 (base 10) = 0100 0111 (base 2)  // slide 3, pg.5
+		- Check: 0100 0111 = 2^6 + 2^2 + 2^1+ 1 = 71
+
 - __Binary: base 2__
-	-  
+	-  2 symbols: 0, 1
+	-  Prefix: "0b"
+	-  Ex: 10 (base 2) = 0b10 = (1 * 2 ^ 1)  + (0 * 2^0) = 2 (base 10)
+	-				MSB  	      LSB
+	- From bin to hexa: 
+		- 0000 = 0, 0001 = 1, 0010 = 2, 0011 = 3, 0100 = 4
+		- 0101 = 5, 0110 = 6, 0111 = 7, 1000 = 8, 10001 = 9,
+		- 1010 = A (10), 1011 = B (11), 1100 = C (12), 
+		- 1101 = D (13), 1110 = E (14), 1111 = F (15)
+		- Ex: 0110 1010 0011 1111 = 0x6A3F  
 - __Hexadecimal: base 16__
-	- Ex:  
-- Oct
-	-  
-- 2's complement format
+	- 16 symbols: [0,9] and [A,F] w/ A=10, B=11, C=12, D=13, E=14, F=15	 
+	- Prefix: "0x"
+	- Ex: 10 (base 16) = 0x10 = 16 (base 10)
+	- From int to hexademical: takes the decimal number, /16 until the result = 0, then read the remainders starting from the most recent remainder up to the first one.
+		- Ex: 249 (base10) => 249/16=15 (r=9), 15/16=0 (r=15=F) ==> 0xF9 (base 16) 
+		- Ez: 19FE (base 16) = 1 * (16^3) + 9 * (16^2) + F * (16^1) + E * (16^0) = 6654 (base 10)
+
+- __Octal: base 8__ (slide 4, pg. 17)
+	- Symbols: 0-7
+	-  Prefix: 0 (--> bin=0) or 1 (--> bin = 1)
+	-  From Bin to Oct (groups of 3 bits per digit from right to left)
+		- 0 110 101 000 111 111 = 0 65077
+		- 01 75123 = 1  
+	- Bin to Oct: 000 = 0, 001 = 1, 010 = 2, 011 = 3, 100 = 4, 101 = 5, 110 = 6, 111 = 7 (slide 3, pg. 16)
+- __2's complement format__:
     - Decimal to 2's complement format
     - 2's complement format to dec
-    - Addition / Subtraction
+- __Addition__ of 2 binary numbers:
+	- __1 + 1 = 0 (carries 1)__; 1 + 0 = 0 + 1 = 1; 0 + 0 = 0 // slide 4, pg. 20
+- __Subtraction__ of 2 binary numbers:
+	-  __0 - 1 = 1__ (borrow 10, and affect the higher bits) // slide 4, pg. 21
+-  __Singed__:
+	- 0 (pos), 1 (neg) // side 4, pg. 25
+	-   
 - IEEE 754 format:
     - Dec to IEEE 754
     - IEEE 754 to Dec 
