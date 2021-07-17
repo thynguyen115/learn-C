@@ -142,15 +142,28 @@
     - __Pointer arithmetic__: see Array part above
         - `const int *a` // cannot change to a++
     - __Precedence__: `*ptr++ = 0;` since post-incr has higher precedence than dereference ==> acts from left to right ==> `*ptr = 0;` then `ptr = ptr + 1;`
-- Struct
+- __Struct__ // slide 3, pg. 12-15
+	- Define a var type (not declare a var or allocate space)
+	- `struct structName { // fields }; var1, var2;`
+	- `struct structName variable_name;` // define a struct
+	- Pointers to a struct: `struct rectangle *ptr = &r1;`
+		- Access fields: `ptr->field_name = val;` or `(*ptr).field_name=val;`
+		- Passing a pointer is cheaper (less space); If small struct ==> pass a struct copy to a function
+	-  Assignment: `struct1 = struct2;` // copies all members
+	-  `typedef struct struct_name {// fields; struct struct_name * next; } struct_name;`
+		- Define a struct called "struct_name" ==> next time, only need to use `struct_name var1;` // no need to write `struct struct_name var1;`
+		- slide 3, pg. 19   
 - Dynamic mem allocation
     - Similarities
     - Differences
     
 ## Basic syntax
 - `int main(int argc, char * argv[]);` // slide 3, pg. 4
-	- argc = number of command line arguments
+	- argc = number of elements in the array argv
 	- argv = an array of (pointers to char) 
+	- argv[0] (ex: ./pa1) // (slide 3, pg. 6)
+	- argv[argc] = NULL
+	- int getopt(int argc, char * const argv[], const char *optstring); 
 - if/else
     -  
 - loop
@@ -162,6 +175,16 @@
 - __self-define funcs__:
     - should not return &address_of_something if that thing will disappear after func call (ex: local vars, passed params) ==> can use "static" to make things not disappear (see slide 2, pg.27)
 
+## Precedence:
+- Slide 3, pg. 9, 10
+- () > postfix 		> 		prefix > dereference
+
+## C File IO
+- stdout = buffer, if buffer is not full ==> not display
+- stderr = not buffer, display immediately
+- Some terms: EOF, NULL, BUFSIZ (slide 3, pg. 22)
+- `#include <stdio.h>`, `#include <errno.h>`
+-  Funcs: fopen, flose, fprintf, fscanf, fread, fwrite, perror, clearerr // slide 3, pg. 23-25
 ## Numbers in computer system:
 - __Decimal: base 10__
 	- 10 symbols [0,9] 
@@ -198,15 +221,29 @@
 		- 01 75123 = 1  
 	- Bin to Oct: 000 = 0, 001 = 1, 010 = 2, 011 = 3, 100 = 4, 101 = 5, 110 = 6, 111 = 7 (slide 3, pg. 16)
 - __2's complement format__:
-    - Decimal to 2's complement format
+    - Decimal to 2's complement format:
+    	- Negative decimal --> binary: ignore the sign, num/2 until 0 (just like above), __flip bits, +1__
+    	-  -102 (base 10) ==> 102/2 = 51 (r=0) .... until 1/2=0 r = 1 ==> slide 4, pg.34
     - 2's complement format to dec
+    	- If negative binary: Flip bits, +1, take magnitude, adjust the sign (slide 4, pg.36) 
+    	- If positive binary: work as normal.
 - __Addition__ of 2 binary numbers:
 	- __1 + 1 = 0 (carries 1)__; 1 + 0 = 0 + 1 = 1; 0 + 0 = 0 // slide 4, pg. 20
 - __Subtraction__ of 2 binary numbers:
 	-  __0 - 1 = 1__ (borrow 10, and affect the higher bits) // slide 4, pg. 21
+	-  x - y = x + (-y) // use 2's complement
 -  __Singed__:
 	- 0 (pos), 1 (neg) // side 4, pg. 25
-	-   
+- __Overflow__:
+	- Unsigned numbers: when Cout != 0 (after addition, still carry a 1) // slide 4, pg. 39
+	- 2's complement overflow: : result is correct ONLY when the carry into the sign bit 
+position (MSB) equals the carry out of the sign bit position (MSB) // slide 4, pg. 40
+	For signed: overflow occurs if operands have same sign and result’s sign is different // slide 4, pg. 41
+- __Expand bit__:
+	- Unsigned: add leading 0s
+	- Signed: repeat the sign of the value // slide 4, pg. 44
+- __Truncate bit__:
+	-   From 8 bits --> 4 bits ==> remove 4 leading digits, the result could be overflowed and not the same. (slide 4, pg. 44, 47-48)
 - IEEE 754 format:
     - Dec to IEEE 754
     - IEEE 754 to Dec 
