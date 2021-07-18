@@ -153,10 +153,11 @@
 	-  `typedef struct struct_name {// fields; struct struct_name * next; } struct_name;`
 		- Define a struct called "struct_name" ==> next time, only need to use `struct_name var1;` // no need to write `struct struct_name var1;`
 		- slide 3, pg. 19   
-- Dynamic mem allocation
+- __Dynamic mem allocation__
     - Similarities
     - Differences
-    
+    - Dynamically allocated struct (slide 3, pg. 40)
+
 ## Basic syntax
 - `int main(int argc, char * argv[]);` // slide 3, pg. 4
 	- argc = number of elements in the array argv
@@ -165,15 +166,42 @@
 	- argv[argc] = NULL
 	- int getopt(int argc, char * const argv[], const char *optstring); 
 - if/else
-    -  
 - loop
 - func
 
 ## Fundamental functions
 - printf
 - putchar
+
+## Memory
+- Funcs:
+	- `void * malloc(size_t size)` // slide 3, pg. 31
+		- Allocates a continuous block of size bytes of uninitialized memory (heap)
+		- Returns pointer to beginning of the block
+		- Returns NULL if errno happens (allocation fails)
+		- `p = (int *)malloc(n*sizeof(int))) == NULL`
+		- `char *bytes = (char *)malloc(BLKSZ * sizeof(char));`
+	- `void free(void *p)` // slide 3, pg. 32
+		- p = address returned by malloc/calloc/realloc
+		- free the block p pointed to 
+		- do not free something that has already been erased
+	- `void *calloc(size_t num_of_elems, size_t size_of_each_elem)` // slide 3, pg. 33
+		- Similar to malloc, but initialize everything to 0 before returning the pointer
+		- More expensive than malloc b/c of zero-ing
+	- `void *realloc(void *p, size_t newBytes);` // slide 3, pg. 34
+		- Reallocate the size of the heap memory where p pointed to ==> new size = newBytes
+		- Contents (heap memory) unchanged (up to Min(old_size, new_size))
+		- Return NULL (if having unchanged allocated buffer)
+- Free: // slide 3, pg. p37
+	- Should free once (even tho many pointers pointing to it)
+	- Free the beginning of the address
+	- If not free, memory leaks, no more memory ==> crash 	
 - __self-define funcs__:
     - should not return &address_of_something if that thing will disappear after func call (ex: local vars, passed params) ==> can use "static" to make things not disappear (see slide 2, pg.27)
+
+## 32-bit ARM:
+- User Mode Memory Space (3MB)
+	- slide 3, pg 47-50  
 
 ## Precedence:
 - Slide 3, pg. 9, 10
@@ -185,6 +213,7 @@
 - Some terms: EOF, NULL, BUFSIZ (slide 3, pg. 22)
 - `#include <stdio.h>`, `#include <errno.h>`
 -  Funcs: fopen, flose, fprintf, fscanf, fread, fwrite, perror, clearerr // slide 3, pg. 23-25
+
 ## Numbers in computer system:
 - __Decimal: base 10__
 	- 10 symbols [0,9] 
