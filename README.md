@@ -1,4 +1,3 @@
-# learn-C
 # Learn-C
 
 ## Basic C compilation sequence
